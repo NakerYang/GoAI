@@ -1,6 +1,10 @@
+package GameEngine;
+
 import java.util.LinkedList;
 import java.util.Arrays;
 import java.awt.Point;
+
+import gui.Board;
 
 /**
  * Game
@@ -13,6 +17,7 @@ import java.awt.Point;
  * @author Steven Zhang
  */
 public class Game {
+	protected static int turn;			// which turn it is
 
 	protected int height;				// height
 	protected int width;				// width
@@ -25,6 +30,7 @@ public class Game {
 	 * @param height,width : the board size nxm
 	 */
 	public Game (int height, int width) {
+		turn = 0;
 		this.height = height;
 		this.width = width;
 		this.moves = new LinkedList<Move>();
@@ -53,19 +59,20 @@ public class Game {
 	public boolean play(char color, int row, int col) {
 
 		// sanity checks
-		if(color != 'B' || color != 'W') {
+		if(color != 'B' && color != 'W') {
 			return false; //not a valid color
 		}
 
 		if(row < 0 || row >= height || col < 0 || col >= width) {
 			return false; //not a valid coordinate
 		}
-
 		//TODO place the move validator here
 
 		board[row][col] = color;
 
 		moves.add(new Move(color, new Point(row, col)));
+
+		turn ++;
 
 		return true;
 	}
@@ -92,5 +99,21 @@ public class Game {
 			return null;
 		}
 		return moves.getLast();
+	}
+
+	public char getTurn() {
+		if((turn & 1) == 0) {
+			return 'W';
+		} else {
+			return 'B';
+		}
+	}
+
+	public void printBoard() {
+		for(int i=0; i<height; i++) {
+			for(int j=0; j<width; j++) {
+				System.out.print("[" + board[i][j] + "]");
+			}System.out.println();
+		}System.out.println();
 	}
 }

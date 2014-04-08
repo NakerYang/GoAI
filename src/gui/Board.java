@@ -11,18 +11,32 @@ public class Board extends JPanel {
 	private static final int CELL_SIZE = 64;
 	private static final int N = 9;
 
-	private static final Image[] boardImg = {
-		new ImageIcon("res/board_middle.png").getImage(),
-		new ImageIcon("res/board_dot.png").getImage(),
-		new ImageIcon("res/board_right.png").getImage(),
-		new ImageIcon("res/board_bottom.png").getImage(),
-		new ImageIcon("res/board_left.png").getImage(),
-		new ImageIcon("res/board_top.png").getImage()
+//	private static final Image[] boardImg = {
+//		new ImageIcon("res/board_middle.png").getImage(),
+//		new ImageIcon("res/board_dot.png").getImage(),
+//		new ImageIcon("res/board_right.png").getImage(),
+//		new ImageIcon("res/board_bottom.png").getImage(),
+//		new ImageIcon("res/board_left.png").getImage(),
+//		new ImageIcon("res/board_top.png").getImage()
+//	};
+
+//	private static final Image[] pieceImg = {
+//		new ImageIcon("res/white.png").getImage(),
+//		new ImageIcon("res/black.png").getImage()
+//	};
+
+	private final Image[] boardImg = {
+		new ImageIcon(this.getClass().getResource("/res/board_middle.png")).getImage(),
+		new ImageIcon(this.getClass().getResource("/res/board_dot.png")).getImage(),
+		new ImageIcon(this.getClass().getResource("/res/board_right.png")).getImage(),
+		new ImageIcon(this.getClass().getResource("/res/board_bottom.png")).getImage(),
+		new ImageIcon(this.getClass().getResource("/res/board_left.png")).getImage(),
+		new ImageIcon(this.getClass().getResource("/res/board_top.png")).getImage()
 	};
 
-	private static final Image[] pieceImg = {
-		new ImageIcon("res/white.png").getImage(),
-		new ImageIcon("res/black.png").getImage()
+	private final Image[] pieceImg = {
+		new ImageIcon(this.getClass().getResource("/res/white.png")).getImage(),
+		new ImageIcon(this.getClass().getResource("/res/black.png")).getImage()
 	};
 
 	private Game game;

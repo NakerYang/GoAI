@@ -14,7 +14,7 @@ public class Go extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args){ 
+	public static void main(String[] args){
 		JFrame frame = new JFrame("GO!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -24,7 +24,8 @@ public class Go extends JFrame {
 		JPanel bp = new JPanel();
 	    bp.setLayout(new BorderLayout(2,1));
 
-	    bp.add(new Board(new Game()),BorderLayout.CENTER);
+		Game game = new Game();
+	    bp.add(game.getGameBoard(),BorderLayout.CENTER);
 
 		frame.getContentPane().add(bp);
 	    frame.pack();

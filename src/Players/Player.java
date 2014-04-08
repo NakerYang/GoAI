@@ -32,9 +32,10 @@ public abstract class Player {
 	 * @param col : the column that the piece will be played on
 	 */
 
-	public boolean makeMove(Game game, int row, int col) {
-		if(game.play(this.color, row, col)) {
-			moves.add(new Move(color, new Point(row, col)));
+	public boolean makeMove(Game game) {
+		Point point = planMove(game);
+		if(game.play(this.color, point.x, point.y)) {
+			moves.add(new Move(color, point));
 			return true;
 		} else {
 			return false;

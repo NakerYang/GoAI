@@ -19,6 +19,7 @@ import gui.Board;
  */
 public class Game {
 	protected static int turn;			// which turn it is
+	protected static Board GAME_BOARD;
 
 	protected int height;				// height
 	protected int width;				// width
@@ -42,13 +43,15 @@ public class Game {
 		for(int i=0; i<height; i++) {
 			Arrays.fill(board[i], '*');
 		}
+
+		GAME_BOARD = new Board(this);
 	}
 
 	/**
 	 * default constructor makes a 9x9 board
 	 */
 	public Game () {
-		this(9,9);
+		this(9, 9);
 	}
 
 	/**
@@ -69,26 +72,24 @@ public class Game {
 		if(row < 0 || row >= height || col < 0 || col >= width) {
 			return false; //not a valid coordinate
 		}
-		
+
 		if (!Rules.isMoveLegal(color, row, col, board)) {
 			return false;
 		}
-		
+
 		char[][] boardCopy = Rules.copyBoard(board);
-		
+
 		boardCopy[row][col] = color;
-		
+
 		if (seenBoardStates.contains(Rules.serializeBoardState(boardCopy))) {
 			return false;
 		}
-		
-		board[row][col] = color;		
-		
+
+		board[row][col] = color;
+
 		seenBoardStates.add(Rules.serializeBoardState(board));
-		
+
 		moves.add(new Move(color, new Point(row, col)));
-		
-		
 
 		turn ++;
 
@@ -125,6 +126,10 @@ public class Game {
 		} else {
 			return 'B';
 		}
+	}
+
+	public Board getGameBoard() {
+		return GAME_BOARD;
 	}
 
 	public void printBoard() {

@@ -9,21 +9,7 @@ import GameEngine.Game;
 public class Board extends JPanel {
 
 	private static final int CELL_SIZE = 64;
-	private static final int N = 9;
-
-//	private static final Image[] boardImg = {
-//		new ImageIcon("res/board_middle.png").getImage(),
-//		new ImageIcon("res/board_dot.png").getImage(),
-//		new ImageIcon("res/board_right.png").getImage(),
-//		new ImageIcon("res/board_bottom.png").getImage(),
-//		new ImageIcon("res/board_left.png").getImage(),
-//		new ImageIcon("res/board_top.png").getImage()
-//	};
-
-//	private static final Image[] pieceImg = {
-//		new ImageIcon("res/white.png").getImage(),
-//		new ImageIcon("res/black.png").getImage()
-//	};
+	private static int N = 9;
 
 	private final Image[] boardImg = {
 		new ImageIcon(this.getClass().getResource("/res/board_middle.png")).getImage(),
@@ -43,7 +29,6 @@ public class Board extends JPanel {
 
 	public Board (Game game) {
 		this.game = game;
-
 		setPreferredSize(new Dimension(CELL_SIZE * N,CELL_SIZE * N));
 		setDoubleBuffered(true);
 		addMouseListener(new ActionListener(this));
@@ -65,6 +50,10 @@ public class Board extends JPanel {
 		}
 	}
 
+	public void refresh() {
+		repaint();
+	}
+
 	private class ActionListener extends MouseAdapter {
 		Board board;
 
@@ -83,7 +72,7 @@ public class Board extends JPanel {
 
 			board.getGame().play(color, x/CELL_SIZE, y/CELL_SIZE);
 
-			repaint();
+			board.refresh();
 		}
 	}
 

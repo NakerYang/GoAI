@@ -1,0 +1,33 @@
+<project name = "Go" basedir="." default="run">
+
+	<!-- declare variables -->
+	<target name="init">
+		<property name="src.dir"		value="src"/>
+		<property name="build.dir"		value="bin"/>
+	</target>
+
+	<!-- make necessary folders  -->
+	<target name="prepare" depends="init">
+		<mkdir dir="${build.dir}"/>
+	</target>
+
+	<!-- compile -->
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src.dir}" destdir="${build.dir}"/>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="Go.jar" basedir="${build.dir}" update="true">
+			<manifest>
+				<attribute name="Main-Class" value="Go"/>
+			</manifest>
+			<fileset dir="${src.dir}">
+				<include name="res/*.png" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="run" depends="jar">
+		<delete dir="${build.dir}"/>
+	</target>
+</project>

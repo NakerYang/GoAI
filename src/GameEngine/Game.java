@@ -1,5 +1,6 @@
 package GameEngine;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Arrays;
 import java.awt.Point;
@@ -23,6 +24,7 @@ public class Game {
 	protected int width;				// width
 	protected char[][] board;			// representation of the board
 	protected LinkedList<Move> moves;	// list of moves
+	protected HashSet<String> seenBoardStates;	 // past board states
 
 	/** constructors **/
 
@@ -34,6 +36,7 @@ public class Game {
 		this.height = height;
 		this.width = width;
 		this.moves = new LinkedList<Move>();
+		this.seenBoardStates = new HashSet<String>();
 
 		board = new char[height][width];
 		for(int i=0; i<height; i++) {
@@ -66,11 +69,26 @@ public class Game {
 		if(row < 0 || row >= height || col < 0 || col >= width) {
 			return false; //not a valid coordinate
 		}
-		//TODO place the move validator here
-
-		board[row][col] = color;
-
+		
+		if (!Rules.isMoveLegal(color, row, col, board)) {
+			return false;
+		}
+		
+		char[][] boardCopy = Rules.copyBoard(board);
+		
+		boardCopy[row][col] = color;
+		
+		if (seenBoardStates.contains(Rules.serializeBoardState(boardCopy))) {
+			return false;
+		}
+		
+		board[row][col] = color;		
+		
+		seenBoardStates.add(Rules.serializeBoardState(board));
+		
 		moves.add(new Move(color, new Point(row, col)));
+		
+		
 
 		turn ++;
 

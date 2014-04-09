@@ -15,6 +15,11 @@ public class Go extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args){
+
+		// first select which AIs are going to play...
+		//TODO this
+
+		// making the main frame
 		JFrame frame = new JFrame("GO!");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -30,5 +35,7 @@ public class Go extends JFrame {
 		frame.getContentPane().add(bp);
 	    frame.pack();
 	    frame.setVisible(true);
+
+		game.playGame();
 	}
 }

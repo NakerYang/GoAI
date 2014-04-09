@@ -1,7 +1,7 @@
 package Players;
 
-import java.util.Random;
 import java.awt.Point;
+import java.util.*;
 
 import GameEngine.Game;
 
@@ -11,12 +11,27 @@ public class RandomPlayer extends Player {
 
 	public RandomPlayer(char color) {
 		super(color);
+		rand = new Random();
 	}
 
-	public Point planMove(Game game) {
-		int row = rand.nextInt(game.getHeight());
-		int col = rand.nextInt(game.getWidth());
+	public void planMove(Game game) {
+		char[][] board = game.getBoard();
+		LinkedList<Point> list = new LinkedList<Point>();
 
-		return new Point(row, col);
+		for(int i=0; i<board.length; i++) {
+			for(int j=0; j<board[i].length; j++){
+				if(board[i][j] == '*') {
+					list.add(new Point(i, j));
+				}
+			}
+		}
+
+		Collections.shuffle(list);
+		while(!list.isEmpty()) {
+			if(makeMove(game, list.poll())) {
+				return;
+			}
+		}
+		skipMove(game);
 	}
 }

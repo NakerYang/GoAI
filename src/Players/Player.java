@@ -23,7 +23,7 @@ public abstract class Player {
 	 * this is the AI thing that plans the move for
 	 * the player
 	 */
-	public abstract Point planMove(Game game);
+	public abstract void planMove(Game game);
 
 	/** playMove
 	 * this method will allow the player to play a move on to the board
@@ -32,14 +32,18 @@ public abstract class Player {
 	 * @param col : the column that the piece will be played on
 	 */
 
-	public boolean makeMove(Game game) {
-		Point point = planMove(game);
+	public boolean makeMove(Game game, Point point) {
 		if(game.play(this.color, point.x, point.y)) {
 			moves.add(new Move(color, point));
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public void skipMove(Game game) {
+		moves.add(new Move());
+		game.skipTurn();
 	}
 
 	/////////////getters and setters////////////////////////

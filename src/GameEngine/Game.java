@@ -3,9 +3,11 @@ package GameEngine;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Arrays;
+import java.util.List;
 import java.awt.Point;
 
 import gui.Board;
+import Players.*;
 
 /**
  * Game
@@ -26,6 +28,7 @@ public class Game {
 	protected char[][] board;			// representation of the board
 	protected LinkedList<Move> moves;	// list of moves
 	protected HashSet<String> seenBoardStates;	 // past board states
+	protected Player p1, p2;
 
 	/** constructors **/
 
@@ -45,6 +48,11 @@ public class Game {
 		}
 
 		GAME_BOARD = new Board(this);
+
+		//TODO remove hardcode
+		p1 = new Human('W');
+		p2 = new RandomPlayer('B');
+
 	}
 
 	/**
@@ -52,6 +60,43 @@ public class Game {
 	 */
 	public Game () {
 		this(9, 9);
+	}
+
+	public void playGame() {
+
+		while(!Rules.gameOver(board)) {
+			if((turn & 1) == 0) {
+				//make the move
+				p1.planMove(this);
+				p1.gain(1);
+				GAME_BOARD.refresh(0);
+
+				//remove the captured pieces
+				List<Point> toRemove = Rules.findCaptured(p1.getColor(), p2.getColor(), board);
+				while(!toRemove.isEmpty()) {
+					Point tmp = toRemove.remove(0);
+					board[tmp.x][tmp.y] = '*';
+				}
+				GAME_BOARD.refresh(0);
+
+				continue;
+			} else {
+				p2.planMove(this);
+				p2.gain(1);
+				GAME_BOARD.refresh(0);
+
+				List<Point> toRemove = Rules.findCaptured(p2.getColor(), p1.getColor(), board);
+				while(!toRemove.isEmpty()) {
+					Point tmp = toRemove.remove(0);
+					board[tmp.x][tmp.y] = '*';
+				}
+				GAME_BOARD.refresh(0);
+
+				continue;
+			}
+		}
+
+		GAME_BOARD.alert(Rules.getWinner(board));
 	}
 
 	/**
@@ -96,6 +141,10 @@ public class Game {
 		return true;
 	}
 
+	public void skipTurn() {
+		turn ++;
+	}
+
 	/** getters and setters **/
 	public int getHeight() {
 		return height;
@@ -120,12 +169,8 @@ public class Game {
 		return moves.getLast();
 	}
 
-	public char getTurn() {
-		if((turn & 1) == 0) {
-			return 'W';
-		} else {
-			return 'B';
-		}
+	public int getTurn() {
+		return (turn & 1);
 	}
 
 	public Board getGameBoard() {

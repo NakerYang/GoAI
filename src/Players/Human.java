@@ -47,15 +47,21 @@ public class Human extends Player{
 		}
 
 		public void mousePressed(MouseEvent e) {
-			int i = e.getX()/64; //TODO change this to variable
-			int j = e.getY()/64;
-
-			char color = human.getColor();
-			if(!game.play(color, i, j)) {
-				JOptionPane.showMessageDialog(null, "Invalid Move!");
-			} else {
-				game.getGameBoard().removeMouseAdaptor(this);
+			if (e.getModifiers() == MouseEvent.BUTTON3_MASK) {
+				game.skipTurn();
 				setStrapped(false);
+			} else {
+
+				int i = e.getX()/64; //TODO change this to variable
+				int j = e.getY()/64;
+
+				char color = human.getColor();
+				if(!game.play(color, i, j)) {
+					JOptionPane.showMessageDialog(null, "Invalid Move!");
+				} else {
+					game.getGameBoard().removeMouseAdaptor(this);
+					setStrapped(false);
+				}
 			}
 		}
 	}

@@ -45,5 +45,6 @@ local.properties
 .texlipse
 
 *.pdf
+*.ps
 
 examples/

@@ -77,6 +77,13 @@ public class Game {
 					Point tmp = toRemove.remove(0);
 					board[tmp.x][tmp.y] = '*';
 				}
+
+				toRemove = Rules.findCaptured(p2.getColor(), p1.getColor(), board);
+				while(!toRemove.isEmpty()) {
+					Point tmp = toRemove.remove(0);
+					board[tmp.x][tmp.y] = '*';
+				}
+
 				GAME_BOARD.refresh(0);
 
 				continue;
@@ -90,6 +97,13 @@ public class Game {
 					Point tmp = toRemove.remove(0);
 					board[tmp.x][tmp.y] = '*';
 				}
+
+				toRemove = Rules.findCaptured(p1.getColor(), p2.getColor(), board);
+				while(!toRemove.isEmpty()) {
+					Point tmp = toRemove.remove(0);
+					board[tmp.x][tmp.y] = '*';
+				}
+
 				GAME_BOARD.refresh(0);
 
 				continue;

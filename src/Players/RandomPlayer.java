@@ -32,6 +32,5 @@ public class RandomPlayer extends Player {
 				return;
 			}
 		}
-		skipMove(game);
 	}
 }

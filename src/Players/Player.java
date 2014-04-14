@@ -41,11 +41,6 @@ public abstract class Player {
 		}
 	}
 
-	public void skipMove(Game game) {
-		moves.add(new Move());
-		game.skipTurn();
-	}
-
 	/////////////getters and setters////////////////////////
 	/**
 	 * player gains n many pieces

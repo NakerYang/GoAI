@@ -155,10 +155,6 @@ public class Game {
 		return true;
 	}
 
-	public void skipTurn() {
-		turn ++;
-	}
-
 	/** getters and setters **/
 	public int getHeight() {
 		return height;

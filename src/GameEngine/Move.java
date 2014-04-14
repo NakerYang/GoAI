@@ -11,19 +11,10 @@ import java.awt.Point;
 public final class Move {
 	private char color; 		// this is the color of the piece
 	private Point location;		// this is the placement of the piece
-	private boolean pass;
 
 	public Move(char color, Point location) {
 		this.color = color;
 		this.location = location;
-		this.pass = false;
-	}
-
-	/**
-	 * default constructor will be a pass
-	 */
-	public Move() {
-		this.pass = true;
 	}
 
 	public char getColor() {
@@ -43,11 +34,7 @@ public final class Move {
 	}
 
 	public String toString() {
-		if(pass) {
-			return "PASS";
-		} else {
-			return "(" + location.x + ", " + location.y + ")";
-		}
+		return "(" + location.x + ", " + location.y + ")";
 	}
 }
 

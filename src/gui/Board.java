@@ -29,6 +29,7 @@ public class Board extends JPanel {
 
 	public Board (Game game) {
 		this.game = game;
+		N = game.getHeight();
 		setPreferredSize(new Dimension(CELL_SIZE * N,CELL_SIZE * N));
 		setDoubleBuffered(true);
 		//setMouseAdaptor(new ActionListener(this));
@@ -66,38 +67,13 @@ public class Board extends JPanel {
 	}
 
 	public void setMouseAdaptor(MouseAdapter actionListener) {
-		addMouseListener(actionListener);
+		this.addMouseListener(actionListener);
 	}
 
 	public void removeMouseAdaptor(MouseAdapter actionListener) {
-		removeMouseListener(actionListener);
+		this.removeMouseListener(actionListener);
 	}
 
-	/**
-	private class ActionListener extends MouseAdapter {
-		Board board;
-
-		public ActionListener(Board board) {
-			this.board = board;
-		}
-
-		public void mousePressed(MouseEvent e) {
-			int x = e.getX();
-			int y = e.getY();
-
-			//TODO more
-			int i = x/CELL_SIZE;
-			int j = y/CELL_SIZE;
-			char color = board.getGame().getTurn() == 1 ? 'W' : 'B';
-
-			if(!board.getGame().play(color, x/CELL_SIZE, y/CELL_SIZE)) {
-				JOptionPane.showMessageDialog(null, "Invalid Move!");
-			} else {
-				board.refresh();
-			}
-		}
-	}
-**/
 	/////////////////GETTERS AND SETTERS//////////////////////////
 	public Game getGame() {
 		return game;

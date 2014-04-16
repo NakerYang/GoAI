@@ -64,6 +64,10 @@ public abstract class Player {
 		return color;
 	}
 
+	public void setColor(char color) {
+		this.color = color;
+	}
+
 	public List<Move> getPreviousMoves() {
 		return moves;
 	}

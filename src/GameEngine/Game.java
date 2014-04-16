@@ -35,8 +35,10 @@ public class Game {
 	/**
 	 * @param height,width : the board size nxm
 	 */
-	public Game (int height, int width) {
+	public Game (int height, int width, Player p1, Player p2) {
 		turn = 0;
+		this.p1 = p1;
+		this.p2 = p2;
 		this.height = height;
 		this.width = width;
 		this.moves = new LinkedList<Move>();
@@ -50,20 +52,12 @@ public class Game {
 		GAME_BOARD = new Board(this);
 
 		//TODO remove hardcode
-		p1 = new Human('W');
-		p2 = new RandomPlayer('B');
+		//this.p1 = new Human('W');
+		//this.p2 = new RandomPlayer('B');
 
-	}
-
-	/**
-	 * default constructor makes a 9x9 board
-	 */
-	public Game () {
-		this(9, 9);
 	}
 
 	public void playGame() {
-
 		while(!Rules.gameOver(board)) {
 			if((turn & 1) == 0) {
 				//make the move

@@ -39,5 +39,8 @@ public class Go {
 	    frame.setVisible(true);
 
 		game.playGame();
+		
+		frame.dispose();
 	}
 }
+

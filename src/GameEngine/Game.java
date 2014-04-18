@@ -58,55 +58,74 @@ public class Game {
 	}
 
 	public void playGame() {
-		while(!Rules.gameOver(board)) {
+		
+		Player winningPlayer = null;
+
+		
+		while(winningPlayer == null) {
 			if((turn & 1) == 0) {
-				//make the move
-				p1.planMove(this);
-				p1.gain(1);
-				GAME_BOARD.refresh(0);
-
-				//remove the captured pieces
-				List<Point> toRemove = Rules.findCaptured(p1.getColor(), p2.getColor(), board);
-				while(!toRemove.isEmpty()) {
-					Point tmp = toRemove.remove(0);
-					board[tmp.x][tmp.y] = '*';
-				}
-
-				toRemove = Rules.findCaptured(p2.getColor(), p1.getColor(), board);
-				while(!toRemove.isEmpty()) {
-					Point tmp = toRemove.remove(0);
-					board[tmp.x][tmp.y] = '*';
-				}
-
-				GAME_BOARD.refresh(0);
-
-				continue;
-			} else {
-				p2.planMove(this);
-				p2.gain(1);
-				GAME_BOARD.refresh(0);
-
-				List<Point> toRemove = Rules.findCaptured(p2.getColor(), p1.getColor(), board);
-				while(!toRemove.isEmpty()) {
-					Point tmp = toRemove.remove(0);
-					board[tmp.x][tmp.y] = '*';
-				}
-
-				toRemove = Rules.findCaptured(p1.getColor(), p2.getColor(), board);
-				while(!toRemove.isEmpty()) {
-					Point tmp = toRemove.remove(0);
-					board[tmp.x][tmp.y] = '*';
-				}
-
-				GAME_BOARD.refresh(0);
-
-				continue;
+				winningPlayer = takeTurn(p1, p2);
 			}
+			else {
+				winningPlayer = takeTurn(p2, p1);
+			}
+			
+			GAME_BOARD.refresh(0);
+			
 		}
-
-		GAME_BOARD.alert(Rules.getWinner(board));
+		
+		String winningMessage = "";
+		
+		if(winningPlayer.getColor() == 'W') {
+			winningMessage = "White wins!";
+		}
+		
+		else {
+			winningMessage = "Black wins!";
+		}
+		
+		GAME_BOARD.alert(winningMessage);
+		
 	}
-
+	
+	private Player takeTurn(Player activePlayer, Player opposingPlayer) {
+		
+		activePlayer.planMove(this);
+		activePlayer.gain(1);
+		
+		GAME_BOARD.refresh(0);
+		
+		if(makeCaptures(activePlayer, opposingPlayer)) {
+			return activePlayer;
+		}
+		
+		if(makeCaptures(opposingPlayer, activePlayer)) {
+			return opposingPlayer;
+		}
+		
+		return null;
+		
+	}
+	
+	private boolean makeCaptures(Player capturingPlayer, Player gettingCapturedPlayer) {
+		
+		List<Point> toRemove = Rules.findCaptured(capturingPlayer.getColor(), gettingCapturedPlayer.getColor(), board);
+		
+		if(toRemove.isEmpty()) {
+			return false;
+		}
+		
+		while(!toRemove.isEmpty()) {
+			
+			Point tmp = toRemove.remove(0);
+			
+			board[tmp.x][tmp.y] = '*';
+			
+		}
+		
+		return true;
+	}
+	
 	/**
 	 * places a piece on the board
 	 *

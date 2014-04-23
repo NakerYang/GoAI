@@ -25,7 +25,7 @@ public class SetUp extends JPanel {
 		title = new JLabel("Go Game Setup");
 
 		dimensionPrompt = new JLabel("Board Size: ");
-		String[] arr = new String[19-4];
+		String[] arr = new String[9-4];
 		for(int i=0; i<arr.length; i++) {
 			arr[i] = (i + 4) + "";
 		}

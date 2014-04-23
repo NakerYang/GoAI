@@ -53,27 +53,30 @@ public class Rules {
 		return boardCopy;
 	}
 
-	public static String getWinner(char[][] board) {
+	public static char getWinner(char[][] board) {
 		int w = 0;
 		int b = 0;
 
-		for(int i=0; i<board.length; i++) {
-			for(int j=0; j<board[i].length; j++ ) {
+		int n = board.length;
+
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
 				if(board[i][j] == 'W') {
 					w ++;
 				}
+
 				if(board[i][j] == 'B') {
 					b ++;
 				}
 			}
 		}
 
-		if(w < b) {
-			return "Black Wins!";
-		} else if (w > b) {
-			return "White Wins!";
+		if(w > b + 1) {
+			return 'W'; //white wins
+		} else if (b > w + 1) {
+			return 'B'; //black wins
 		} else {
-			return "Draw!";
+			return 'N'; //no one wins
 		}
 	}
 

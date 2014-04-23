@@ -16,6 +16,7 @@ public class PlayerFactory {
 		playerMap.put("Human", new Human(color)); //instantiates as a not real color
 		playerMap.put("The Fish", new RandomPlayer(color)); // random AI for testing!
 		playerMap.put("The Puppy", new HueristicPlayer(color)); // a player that is driven by heuristics
+		playerMap.put("Fluffy", new AlphaBetaPlayer(color)); //
 	}
 
 	/**

@@ -61,7 +61,7 @@ public class AlphaBetaPlayer extends Player {
 		//both player have the same next moves
 		//List<Point> nextMoves = AiUtil.getNextMoves(boardCopy, influence, 10); //hard coded horizontal pruning
 
-		List<Point> nextMoves = AiUtil.getNextMoves(boardCopy, boardCopy.length * boardCopy.length);
+		List<Point> nextMoves = AiUtil.getNextMoves(boardCopy, 3);
 		if(turn == getColor()) {
 
 			for(Point next : nextMoves) {

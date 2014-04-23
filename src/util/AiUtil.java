@@ -60,6 +60,11 @@ public class AiUtil {
 		Collections.sort(pq);
 
 		List<Point> ret = new LinkedList<Point>();
+
+		while(!pq.isEmpty() && pq.peek().influence > 0) {
+			ret.add(pq.poll().move);
+		}
+
 		while(!pq.isEmpty() && horizontalPruning --> 0) {
 			ret.add(pq.poll().move);
 		}

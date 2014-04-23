@@ -68,6 +68,12 @@ public abstract class Player {
 		this.color = color;
 	}
 
+	public char getOpponentColor() {
+		if(this.color == 'W') {
+			return 'B';
+		} return 'W';
+	}
+
 	public List<Move> getPreviousMoves() {
 		return moves;
 	}

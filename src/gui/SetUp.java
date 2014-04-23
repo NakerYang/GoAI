@@ -36,8 +36,8 @@ public class SetUp extends JPanel {
 		factory2 = new PlayerFactory('B');
 
 		data.setBoardSize(4);
-		data.setP1(factory1.get("Human"));
-		data.setP2(factory2.get("Human"));
+		data.setP1(factory1.get(factory1.getPlayerNames()[0]));
+		data.setP2(factory2.get(factory1.getPlayerNames()[0]));
 
 		player1Label = new JLabel("Player 1 (white): ");
 		player2Label = new JLabel("Player 2 (Black): ");

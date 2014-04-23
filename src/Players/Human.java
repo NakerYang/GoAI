@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import GameEngine.Game;
+import util.*;
 
 public class Human extends Player{
 

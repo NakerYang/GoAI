@@ -58,10 +58,10 @@ public class Game {
 	}
 
 	public void playGame() {
-		
+
 		Player winningPlayer = null;
 
-		
+
 		while(winningPlayer == null) {
 			if((turn & 1) == 0) {
 				winningPlayer = takeTurn(p1, p2);
@@ -69,63 +69,63 @@ public class Game {
 			else {
 				winningPlayer = takeTurn(p2, p1);
 			}
-			
+
 			GAME_BOARD.refresh(0);
-			
+
 		}
-		
+
 		String winningMessage = "";
-		
+
 		if(winningPlayer.getColor() == 'W') {
 			winningMessage = "White wins!";
 		}
-		
+
 		else {
 			winningMessage = "Black wins!";
 		}
-		
+
 		GAME_BOARD.alert(winningMessage);
-		
+
 	}
-	
+
 	private Player takeTurn(Player activePlayer, Player opposingPlayer) {
-		
+
 		activePlayer.planMove(this);
 		activePlayer.gain(1);
-		
+
 		GAME_BOARD.refresh(0);
-		
+
 		if(makeCaptures(activePlayer, opposingPlayer)) {
 			return activePlayer;
 		}
-		
+
 		if(makeCaptures(opposingPlayer, activePlayer)) {
 			return opposingPlayer;
 		}
-		
+
 		return null;
-		
+
 	}
-	
+
 	private boolean makeCaptures(Player capturingPlayer, Player gettingCapturedPlayer) {
-		
+
 		List<Point> toRemove = Rules.findCaptured(capturingPlayer.getColor(), gettingCapturedPlayer.getColor(), board);
-		
+
 		if(toRemove.isEmpty()) {
 			return false;
 		}
-		
+
 		while(!toRemove.isEmpty()) {
-			
+
 			Point tmp = toRemove.remove(0);
-			
+
 			board[tmp.x][tmp.y] = '*';
-			
+
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * places a piece on the board
 	 *
@@ -183,6 +183,18 @@ public class Game {
 
 	public char[][] getBoard() {
 		return board;
+	}
+
+	public char[][] getBoardCopy () {
+		char[][] temp = new char[board.length][board.length];
+
+		for(int i=0; i<board.length; i++) {
+			for(int j=0; j<board.length; j++) {
+				temp[i][j] = board[i][j];
+			}
+		}
+
+		return temp;
 	}
 
 	public Move getLastMove() {
